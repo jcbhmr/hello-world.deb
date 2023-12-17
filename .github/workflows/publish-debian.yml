@@ -1,0 +1,21 @@
+name: Publish Debian
+on:
+  release:
+    types: released
+jobs:
+  publish-debian:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          version=$(echo "$TAG" | sed 's/^v//')
+          curl -fsSL "$URL" -o "greet_$VERSION.orig.tar.gz"
+          tar -xzvf "greet_$VERSION.orig.tar.gz"
+          cd "greet-$VERSION"
+          make
+          ls -lAh
+          ls -lAh src
+          ls -lAh out
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          URL: ${{ github.event.release.tarball_url }}
