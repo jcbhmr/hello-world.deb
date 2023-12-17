@@ -9,9 +9,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           version=$(echo "$TAG" | sed 's/^v//')
-          curl -fsSL "$URL" -o "greet_$VERSION.orig.tar.gz"
-          tar -xzvf "greet_$VERSION.orig.tar.gz"
-          cd "greet-$VERSION"
+          curl -fsSL "$URL" -o "greet_$version.orig.tar.gz"
+          tar -xzvf "greet_$version.orig.tar.gz"
+          cd "greet-$version"
           make
           ls -lAh
           ls -lAh src
